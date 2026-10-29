@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vllm-config
+data:
+  MODEL_ID: "Qwen/Qwen2.5-1.5B-Instruct"
+  MODEL_PATH: "/models/qwen2.5-1.5b-instruct"
+  MAX_MODEL_LEN: "2048"
+  DEVICE: "cpu"
