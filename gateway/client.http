@@ -1,0 +1,74 @@
+
+@baseURL = http://127.0.0.1:8080
+@apiKey = local-test-secret
+@model = Qwen/Qwen2.5-1.5B-Instruct
+
+### Health check
+GET {{baseURL}}/healthz
+
+### List available models
+GET {{baseURL}}/v1/models
+Authorization: Bearer {{apiKey}}
+
+### Chat completion
+POST {{baseURL}}/v1/chat/completions
+Authorization: Bearer {{apiKey}}
+Content-Type: application/json
+
+{
+  "model": "{{model}}",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Explain Kubernetes in one sentence."
+    }
+  ],
+  "max_tokens": 128,
+  "temperature": 0.7
+}
+
+### Chat completion — streaming
+POST {{baseURL}}/v1/chat/completions
+Authorization: Bearer {{apiKey}}
+Content-Type: application/json
+Accept: text/event-stream
+
+{
+  "model": "{{model}}",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Count from 1 to 5."
+    }
+  ],
+  "max_tokens": 128,
+  "stream": true
+}
+
+### Text completion
+POST {{baseURL}}/v1/completions
+Authorization: Bearer {{apiKey}}
+Content-Type: application/json
+
+{
+  "model": "{{model}}",
+  "prompt": "Kubernetes is",
+  "max_tokens": 64
+}
+
+### Unauthorized request — expected 401
+GET {{baseURL}}/v1/models
+
+### Invalid API key — expected 401
+GET {{baseURL}}/v1/models
+Authorization: Bearer invalid-token
+
+### Unsupported endpoint — expected 404
+POST {{baseURL}}/v1/embeddings
+Authorization: Bearer {{apiKey}}
+Content-Type: application/json
+
+{
+  "model": "{{model}}",
+  "input": "Hello"
+}

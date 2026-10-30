@@ -1,0 +1,10 @@
+.git
+.gitignore
+.gocache/
+.env
+.env.*
+secrets/
+client.http
+*.exe
+*.test
+coverage.out

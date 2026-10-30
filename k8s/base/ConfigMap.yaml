@@ -4,6 +4,7 @@ metadata:
   name: vllm-config
 data:
   MODEL_ID: "Qwen/Qwen2.5-1.5B-Instruct"
+  MODEL_REVISION: "989aa7980e4cf806f80c7fef2b1adb7bc71aa306"
   MODEL_PATH: "/models/qwen2.5-1.5b-instruct"
   MAX_MODEL_LEN: "2048"
-  DEVICE: "cpu"
+  MEMORY_UTILIZATION: "0.5"

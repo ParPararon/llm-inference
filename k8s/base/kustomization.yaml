@@ -4,5 +4,8 @@ kind: Kustomization
 namespace: llm-inference
 
 resources:
-  - PersistentVolumeClaim.yaml
+  - Namespace.yaml
   - ConfigMap.yaml
+  - PersistentVolumeClaim.yaml
+  - Deployment.yaml
+  - Service.yaml

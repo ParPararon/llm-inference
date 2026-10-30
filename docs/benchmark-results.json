@@ -1,0 +1,103 @@
+{
+  "timestamp": "2026-10-30T22:59:28.444889+00:00",
+  "model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "runs_per_case": 5,
+  "streaming": true,
+  "max_tokens": 64,
+  "cases": {
+    "short": {
+      "prompt": "Explain what a database index is in two sentences.",
+      "samples": [
+        {
+          "ttft_s": 0.1627,
+          "latency_s": 4.544,
+          "prompt_tokens": 40,
+          "completion_tokens": 48,
+          "decode_tokens_per_s": 10.73
+        },
+        {
+          "ttft_s": 0.1831,
+          "latency_s": 4.407,
+          "prompt_tokens": 40,
+          "completion_tokens": 48,
+          "decode_tokens_per_s": 11.13
+        },
+        {
+          "ttft_s": 0.1694,
+          "latency_s": 4.2767,
+          "prompt_tokens": 40,
+          "completion_tokens": 48,
+          "decode_tokens_per_s": 11.44
+        },
+        {
+          "ttft_s": 0.1685,
+          "latency_s": 4.2976,
+          "prompt_tokens": 40,
+          "completion_tokens": 48,
+          "decode_tokens_per_s": 11.38
+        },
+        {
+          "ttft_s": 0.1736,
+          "latency_s": 4.293,
+          "prompt_tokens": 40,
+          "completion_tokens": 48,
+          "decode_tokens_per_s": 11.41
+        }
+      ],
+      "summary": {
+        "median_ttft_s": 0.1694,
+        "median_latency_s": 4.2976,
+        "median_prompt_tokens": 40,
+        "median_completion_tokens": 48,
+        "median_decode_tokens_per_s": 11.38
+      }
+    },
+    "long": {
+      "prompt": "Consider the following data engineering system. An application collects events from web clients, mobile clients, and backend services. Events are delivered through a message broker and processed by several independent consumers. Each event contains a timestamp, event identifier, user identifier, event type, and metadata. Some events arrive late, some are duplicated, and some are delivered out of order. The system must support real-time analytics and daily batch reporting. Storage costs, fault tolerance, schema evolution, and reproducible processing are important. The engineering team also needs monitoring, alerting, and a strategy for replaying historical data. Data quality checks should detect missing fields, unexpected values, and broken relationships. Access to sensitive fields must be restricted, and retention policies must be enforced. Consider the following data engineering system. An application collects events from web clients, mobile clients, and backend services. Events are delivered through a message broker and processed by several independent consumers. Each event contains a timestamp, event identifier, user identifier, event type, and metadata. Some events arrive late, some are duplicated, and some are delivered out of order. The system must support real-time analytics and daily batch reporting. Storage costs, fault tolerance, schema evolution, and reproducible processing are important. The engineering team also needs monitoring, alerting, and a strategy for replaying historical data. Data quality checks should detect missing fields, unexpected values, and broken relationships. Access to sensitive fields must be restricted, and retention policies must be enforced. Consider the following data engineering system. An application collects events from web clients, mobile clients, and backend services. Events are delivered through a message broker and processed by several independent consumers. Each event contains a timestamp, event identifier, user identifier, event type, and metadata. Some events arrive late, some are duplicated, and some are delivered out of order. The system must support real-time analytics and daily batch reporting. Storage costs, fault tolerance, schema evolution, and reproducible processing are important. The engineering team also needs monitoring, alerting, and a strategy for replaying historical data. Data quality checks should detect missing fields, unexpected values, and broken relationships. Access to sensitive fields must be restricted, and retention policies must be enforced. Consider the following data engineering system. An application collects events from web clients, mobile clients, and backend services. Events are delivered through a message broker and processed by several independent consumers. Each event contains a timestamp, event identifier, user identifier, event type, and metadata. Some events arrive late, some are duplicated, and some are delivered out of order. The system must support real-time analytics and daily batch reporting. Storage costs, fault tolerance, schema evolution, and reproducible processing are important. The engineering team also needs monitoring, alerting, and a strategy for replaying historical data. Data quality checks should detect missing fields, unexpected values, and broken relationships. Access to sensitive fields must be restricted, and retention policies must be enforced. Consider the following data engineering system. An application collects events from web clients, mobile clients, and backend services. Events are delivered through a message broker and processed by several independent consumers. Each event contains a timestamp, event identifier, user identifier, event type, and metadata. Some events arrive late, some are duplicated, and some are delivered out of order. The system must support real-time analytics and daily batch reporting. Storage costs, fault tolerance, schema evolution, and reproducible processing are important. The engineering team also needs monitoring, alerting, and a strategy for replaying historical data. Data quality checks should detect missing fields, unexpected values, and broken relationships. Access to sensitive fields must be restricted, and retention policies must be enforced. Consider the following data engineering system. An application collects events from web clients, mobile clients, and backend services. Events are delivered through a message broker and processed by several independent consumers. Each event contains a timestamp, event identifier, user identifier, event type, and metadata. Some events arrive late, some are duplicated, and some are delivered out of order. The system must support real-time analytics and daily batch reporting. Storage costs, fault tolerance, schema evolution, and reproducible processing are important. The engineering team also needs monitoring, alerting, and a strategy for replaying historical data. Data quality checks should detect missing fields, unexpected values, and broken relationships. Access to sensitive fields must be restricted, and retention policies must be enforced. Consider the following data engineering system. An application collects events from web clients, mobile clients, and backend services. Events are delivered through a message broker and processed by several independent consumers. Each event contains a timestamp, event identifier, user identifier, event type, and metadata. Some events arrive late, some are duplicated, and some are delivered out of order. The system must support real-time analytics and daily batch reporting. Storage costs, fault tolerance, schema evolution, and reproducible processing are important. The engineering team also needs monitoring, alerting, and a strategy for replaying historical data. Data quality checks should detect missing fields, unexpected values, and broken relationships. Access to sensitive fields must be restricted, and retention policies must be enforced. Consider the following data engineering system. An application collects events from web clients, mobile clients, and backend services. Events are delivered through a message broker and processed by several independent consumers. Each event contains a timestamp, event identifier, user identifier, event type, and metadata. Some events arrive late, some are duplicated, and some are delivered out of order. The system must support real-time analytics and daily batch reporting. Storage costs, fault tolerance, schema evolution, and reproducible processing are important. The engineering team also needs monitoring, alerting, and a strategy for replaying historical data. Data quality checks should detect missing fields, unexpected values, and broken relationships. Access to sensitive fields must be restricted, and retention policies must be enforced. Consider the following data engineering system. An application collects events from web clients, mobile clients, and backend services. Events are delivered through a message broker and processed by several independent consumers. Each event contains a timestamp, event identifier, user identifier, event type, and metadata. Some events arrive late, some are duplicated, and some are delivered out of order. The system must support real-time analytics and daily batch reporting. Storage costs, fault tolerance, schema evolution, and reproducible processing are important. The engineering team also needs monitoring, alerting, and a strategy for replaying historical data. Data quality checks should detect missing fields, unexpected values, and broken relationships. Access to sensitive fields must be restricted, and retention policies must be enforced. Consider the following data engineering system. An application collects events from web clients, mobile clients, and backend services. Events are delivered through a message broker and processed by several independent consumers. Each event contains a timestamp, event identifier, user identifier, event type, and metadata. Some events arrive late, some are duplicated, and some are delivered out of order. The system must support real-time analytics and daily batch reporting. Storage costs, fault tolerance, schema evolution, and reproducible processing are important. The engineering team also needs monitoring, alerting, and a strategy for replaying historical data. Data quality checks should detect missing fields, unexpected values, and broken relationships. Access to sensitive fields must be restricted, and retention policies must be enforced. Consider the following data engineering system. An application collects events from web clients, mobile clients, and backend services. Events are delivered through a message broker and processed by several independent consumers. Each event contains a timestamp, event identifier, user identifier, event type, and metadata. Some events arrive late, some are duplicated, and some are delivered out of order. The system must support real-time analytics and daily batch reporting. Storage costs, fault tolerance, schema evolution, and reproducible processing are important. The engineering team also needs monitoring, alerting, and a strategy for replaying historical data. Data quality checks should detect missing fields, unexpected values, and broken relationships. Access to sensitive fields must be restricted, and retention policies must be enforced. Consider the following data engineering system. An application collects events from web clients, mobile clients, and backend services. Events are delivered through a message broker and processed by several independent consumers. Each event contains a timestamp, event identifier, user identifier, event type, and metadata. Some events arrive late, some are duplicated, and some are delivered out of order. The system must support real-time analytics and daily batch reporting. Storage costs, fault tolerance, schema evolution, and reproducible processing are important. The engineering team also needs monitoring, alerting, and a strategy for replaying historical data. Data quality checks should detect missing fields, unexpected values, and broken relationships. Access to sensitive fields must be restricted, and retention policies must be enforced. Describe the main components of this architecture and explain how you would handle duplicate events, late arrivals, and data quality.",
+      "samples": [
+        {
+          "ttft_s": 0.1721,
+          "latency_s": 5.7699,
+          "prompt_tokens": 1828,
+          "completion_tokens": 64,
+          "decode_tokens_per_s": 11.25
+        },
+        {
+          "ttft_s": 0.1951,
+          "latency_s": 5.8044,
+          "prompt_tokens": 1828,
+          "completion_tokens": 64,
+          "decode_tokens_per_s": 11.23
+        },
+        {
+          "ttft_s": 0.1898,
+          "latency_s": 5.8207,
+          "prompt_tokens": 1828,
+          "completion_tokens": 64,
+          "decode_tokens_per_s": 11.19
+        },
+        {
+          "ttft_s": 0.18,
+          "latency_s": 5.7674,
+          "prompt_tokens": 1828,
+          "completion_tokens": 64,
+          "decode_tokens_per_s": 11.28
+        },
+        {
+          "ttft_s": 0.1987,
+          "latency_s": 5.8489,
+          "prompt_tokens": 1828,
+          "completion_tokens": 64,
+          "decode_tokens_per_s": 11.15
+        }
+      ],
+      "summary": {
+        "median_ttft_s": 0.1898,
+        "median_latency_s": 5.8044,
+        "median_prompt_tokens": 1828,
+        "median_completion_tokens": 64,
+        "median_decode_tokens_per_s": 11.23
+      }
+    }
+  }
+}

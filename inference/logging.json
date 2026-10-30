@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "disable_existing_loggers": false,
+  "filters": {
+    "health": {
+      "()": "vllm.logging_utils.uvicorn_logging.UvicornAccessLogFilter",
+      "excluded_paths": ["/health", "/metrics"]
+    }
+  },
+  "formatters": {
+    "standard": {
+      "format": "%(asctime)s %(levelname)s %(name)s %(message)s"
+    },
+    "access": {
+      "format": "%(asctime)s INFO inference_request"
+    }
+  },
+  "handlers": {
+    "console": {
+      "class": "logging.StreamHandler",
+      "formatter": "standard",
+      "stream": "ext://sys.stdout"
+    },
+    "access": {
+      "class": "logging.StreamHandler",
+      "formatter": "access",
+      "filters": ["health"],
+      "stream": "ext://sys.stdout"
+    }
+  },
+  "loggers": {
+    "vllm": {
+      "level": "WARNING",
+      "handlers": ["console"],
+      "propagate": false
+    },
+    "uvicorn": {
+      "level": "WARNING",
+      "handlers": ["console"],
+      "propagate": false
+    },
+    "uvicorn.error": {
+      "level": "WARNING",
+      "handlers": ["console"],
+      "propagate": false
+    },
+    "uvicorn.access": {
+      "level": "INFO",
+      "handlers": ["access"],
+      "propagate": false
+    }
+  },
+  "root": {
+    "level": "WARNING",
+    "handlers": ["console"]
+  }
+}

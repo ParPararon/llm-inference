@@ -1,0 +1,179 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: llm-inference
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: llm-inference
+  template:
+    metadata:
+      labels:
+        app: llm-inference
+    spec:
+      terminationGracePeriodSeconds: 30
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        fsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
+
+      initContainers:
+        - name: model-initializer
+          image: llm-inference-model-initializer:local
+          imagePullPolicy: Never
+          envFrom:
+            - configMapRef:
+                name: vllm-config
+          env:
+            - name: HF_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: vllm-secrets
+                  key: HF_TOKEN
+                  optional: true
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          resources:
+            requests:
+              cpu: "250m"
+              memory: 256Mi
+            limits:
+              cpu: "2"
+              memory: 1Gi
+          volumeMounts:
+            - name: model-cache
+              mountPath: /models
+            - name: initializer-tmp
+              mountPath: /tmp
+
+      containers:
+        - name: vllm
+          image: llm-inference-vllm:local
+          imagePullPolicy: Never
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              exec vllm serve "$MODEL_PATH" \
+                --served-model-name "$MODEL_ID" \
+                --host 127.0.0.1 \
+                --port 8000 \
+                --dtype bfloat16 \
+                --max-model-len "$MAX_MODEL_LEN" \
+                --device-memory-utilization "$MEMORY_UTILIZATION" \
+                --no-enable-log-requests \
+                --no-enable-log-outputs \
+                --disable-access-log-for-endpoints /health,/metrics \
+                --logging-config.pylogging_config_file /etc/vllm/logging.json
+          envFrom:
+            - configMapRef:
+                name: vllm-config
+          env:
+            - name: VLLM_CPU_OMP_THREADS_BIND
+              value: "auto"
+            - name: VLLM_NO_USAGE_STATS
+              value: "1"
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+          resources:
+            requests:
+              cpu: "4"
+              memory: 6Gi
+            limits:
+              cpu: "10"
+              memory: 11Gi
+          startupProbe:
+            exec:
+              command:
+                - python
+                - -c
+                - |
+                  from urllib.request import urlopen
+                  with urlopen("http://127.0.0.1:8000/health", timeout=3) as response:
+                      assert response.status == 200
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 90
+          readinessProbe:
+            exec:
+              command:
+                - python
+                - -c
+                - |
+                  from urllib.request import urlopen
+                  with urlopen("http://127.0.0.1:8000/health", timeout=3) as response:
+                      assert response.status == 200
+            periodSeconds: 10
+            timeoutSeconds: 5
+          volumeMounts:
+            - name: model-cache
+              mountPath: /models
+              readOnly: true
+            - name: vllm-tmp
+              mountPath: /tmp
+            - name: shared-memory
+              mountPath: /dev/shm
+
+        - name: gateway
+          image: llm-inference-gateway:local
+          imagePullPolicy: Never
+          env:
+            - name: LISTEN_ADDRESS
+              value: ":8080"
+            - name: UPSTREAM_URL
+              value: "http://127.0.0.1:8000"
+            - name: API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: vllm-secrets
+                  key: API_KEY
+          securityContext:
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+          ports:
+            - name: http
+              containerPort: 8080
+          resources:
+            requests:
+              cpu: "100m"
+              memory: 32Mi
+            limits:
+              cpu: "500m"
+              memory: 128Mi
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            periodSeconds: 10
+
+      volumes:
+        - name: model-cache
+          persistentVolumeClaim:
+            claimName: model-cache
+        - name: initializer-tmp
+          emptyDir: {}
+        - name: vllm-tmp
+          emptyDir: {}
+        - name: shared-memory
+          emptyDir:
+            medium: Memory
+            sizeLimit: 1Gi
